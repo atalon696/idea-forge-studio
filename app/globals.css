@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-forge-800 text-steel-300 font-sans antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(245, 97, 2, 0.3);
+    color: #f2f4f5;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-steel-100;
+    text-wrap: balance;
+  }
+
+  /* Foco visible y accesible */
+  :focus-visible {
+    outline: 2px solid #f56102;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Scrollbar discreta */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050d19;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #19273a;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a4453;
+  }
+}
+
+@layer components {
+  /* Línea-fragua: divisor firma con punto incandescente al centro */
+  .forge-rule {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      #3a4453 10%,
+      #3a4453 47%,
+      #f56102 50%,
+      #3a4453 53%,
+      #3a4453 90%,
+      transparent
+    );
+    position: relative;
+  }
+  .forge-rule::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    background: #f56102;
+    box-shadow: 0 0 16px rgba(245, 97, 2, 0.7);
+  }
+
+  /* Texto con relleno acero */
+  .text-steel-gradient {
+    background: linear-gradient(145deg, #f2f4f5, #9aa3ae 60%, #e4e8ec);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Texto con relleno fundido */
+  .text-molten-gradient {
+    background: linear-gradient(120deg, #ff7a1a, #f56102 55%, #b8470a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Rejilla blueprint para fondos técnicos */
+  .bg-blueprint {
+    background-image: linear-gradient(
+        rgba(138, 149, 163, 0.06) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(138, 149, 163, 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer components {
+  /* Prosa para páginas legales */
+  .legal h2 {
+    @apply mt-10 font-display text-2xl font-semibold uppercase tracking-[0.02em] text-steel-100;
+  }
+  .legal h3 {
+    @apply mt-6 font-display text-lg font-semibold text-steel-100;
+  }
+  .legal p {
+    @apply mt-3 text-steel-300 leading-relaxed;
+  }
+  .legal ul {
+    @apply mt-3 flex flex-col gap-2;
+  }
+  .legal li {
+    @apply flex gap-2.5 text-steel-300;
+  }
+  .legal li::before {
+    content: "";
+    @apply mt-2 h-1.5 w-1.5 shrink-0 rotate-45 bg-molten;
+  }
+  .legal a {
+    @apply text-molten underline underline-offset-2 hover:text-molten-spark;
+  }
+  .legal strong {
+    @apply text-steel-100;
+  }
+  .legal .placeholder {
+    @apply rounded border border-molten-deep/40 bg-molten/5 px-1.5 py-0.5 font-mono text-[13px] text-molten-spark;
+  }
+}
