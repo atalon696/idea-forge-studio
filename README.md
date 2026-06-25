@@ -51,3 +51,32 @@ y actualizar la Política de Privacidad antes de activarlo.
 - Contenido: `lib/site.ts`, `lib/services.ts`, `lib/products.ts`.
 - Logos: `/public/logo-hero.png`, `/public/logo-navbar.png`, `/public/isotipo.png`.
 - Tokens de diseño: `tailwind.config.ts` y `app/globals.css`.
+
+## Despliegue en Cloudflare Workers (OpenNext)
+
+El proyecto está adaptado con el adaptador oficial **`@opennextjs/cloudflare`** (OpenNext sobre Workers). Archivos de infraestructura: `wrangler.jsonc`, `open-next.config.ts`, `public/_headers` y los scripts `preview`/`deploy` en `package.json`.
+
+### Desde GitHub, sin pasos manuales
+
+1. Sube el repositorio a GitHub (con `wrangler.jsonc`, `open-next.config.ts` y `package.json` incluidos; `.open-next` está en `.gitignore` y se regenera en cada build).
+2. En el panel de Cloudflare: **Workers & Pages → Create → Workers → Import a repository** y conecta el repo.
+3. Configura los comandos del build:
+   - **Build command:** `npx opennextjs-cloudflare build`
+   - **Deploy command:** `npx wrangler deploy` (valor por defecto)
+4. Cloudflare detecta Next.js, ejecuta `next build`, OpenNext lo transforma en un Worker y lo despliega. Cada `push` a la rama principal vuelve a desplegar automáticamente.
+
+> Importante: deja `wrangler.jsonc` y `open-next.config.ts` en el repo. Así Cloudflare usa tu configuración en lugar de autogenerar una que podría entrar en conflicto.
+
+### Desde tu máquina (opcional)
+
+```bash
+npx wrangler login                 # una sola vez
+npm run preview                    # build + previsualización en el runtime de Workers (local)
+npm run deploy                     # build + despliegue a Cloudflare
+```
+
+### Notas técnicas
+
+- Runtime **Node.js** (no edge): `nodejs_compat` activado en `wrangler.jsonc`. No existe `export const runtime = "edge"` en el proyecto.
+- `next/image` con `images.unoptimized: true`: los logos se sirven como assets estáticos, sin necesitar el binding de Cloudflare Images.
+- Todas las páginas son estáticas; no hay backend, API ni variables de entorno requeridas en runtime.
