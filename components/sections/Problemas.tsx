@@ -45,7 +45,7 @@ export function Problemas() {
     <section className="py-24 md:py-32">
       <Container>
         <SectionHeading
-          eyebrow="Tu problema, no nuestra tecnología"
+          eyebrow="Nuestra tecnología al servicio de tu negocio"
           title="¿Con qué tipo de problemas podemos ayudarte?"
           intro="No necesitas saber qué tecnología hace falta. Si reconoces alguna de estas situaciones, es muy probable que podamos ayudarte."
         />
